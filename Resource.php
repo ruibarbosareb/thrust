@@ -6,12 +6,12 @@ use Rebortec\Thrust\Actions\Delete;
 use Rebortec\Thrust\Actions\MainAction;
 use Rebortec\Thrust\Contracts\FormatsNewObject;
 use Rebortec\Thrust\Contracts\Prunable;
+use Rebortec\Thrust\Fields\Edit;
 use Rebortec\Thrust\Fields\Panel;
 use Rebortec\Thrust\Fields\Relationship;
 use Rebortec\Thrust\ResourceFilters\Filters;
 use Rebortec\Thrust\ResourceFilters\Search;
 use Rebortec\Thrust\ResourceFilters\Sort;
-use Illuminate\Support\Str;
 
 abstract class Resource
 {
@@ -64,13 +64,25 @@ abstract class Resource
     protected $with = null;
 
     /**
+     * @var Collection where rows already fetched are stored
+     */
+    private $alreadyFetchedRows;
+
+    /**
      * @return array array of fields
      */
     abstract public function fields();
 
+    public function getFields(){
+        return array_merge(
+            $this->fields(),
+            $this->editAndDeleteFields()
+        );
+    }
+
     public function fieldsFlattened()
     {
-        return collect($this->fields())->map(function ($field) {
+        return collect($this->getFields())->map(function ($field) {
             if ($field instanceof Panel) {
                 return $field->fields;
             }
@@ -142,12 +154,17 @@ abstract class Resource
 
     public function canEdit($object)
     {
-        return app(ResourceGate::class)->can($this, 'update', $object);
+        return $this->can('update', $object);
     }
 
     public function canDelete($object)
     {
-        return app(ResourceGate::class)->can($this, 'delete', $object);
+        return $this->can('delete', $object);
+    }
+
+    public function can($ability, $object = null){
+        if (! $ability) return true;
+        return app(ResourceGate::class)->can($this, $ability, $object);
     }
 
     public function makeNew()
@@ -258,16 +275,16 @@ abstract class Resource
 
     public function rows()
     {
-        if (request('search')) {
-            return $this->query()->get();
+        if (! $this->alreadyFetchedRows) {
+            return $this->fetchRows();
         }
-        return $this->query()->paginate($this->pagination);
+        return $this->alreadyFetchedRows;
     }
 
     public function getDescription()
     {
-        $description = trans_choice(config('thrust.translationsDescriptionsPrefix') . Str::singular($this->name()), 1);
-        if (! Str::contains($description, config('thrust.translationsDescriptionsPrefix'))) {
+        $description = trans_choice(config('thrust.translationsDescriptionsPrefix') . str_singular($this->name()), 1);
+        if (! str_contains($description, config('thrust.translationsDescriptionsPrefix'))) {
             return $description;
         }
         return '';
@@ -284,5 +301,20 @@ abstract class Resource
     public function sortFieldIsValid($sort)
     {
         return $this->fieldsFlattened()->where('sortable', true)->pluck('field')->contains($sort);
+    }
+
+    protected function editAndDeleteFields()
+    {
+        return [Edit::make('edit'), Fields\Delete::make('delete')];
+    }
+
+    private function fetchRows()
+    {
+        if (request('search')) {
+            $this->alreadyFetchedRows = $this->query()->paginate(200);
+        }else {
+            $this->alreadyFetchedRows = $this->query()->paginate($this->pagination);
+        }
+        return $this->alreadyFetchedRows;
     }
 }

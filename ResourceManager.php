@@ -5,7 +5,6 @@ namespace Rebortec\Thrust;
 use Log;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
-use Illuminate\Support\Str;
 
 class ResourceManager
 {
@@ -38,17 +37,17 @@ class ResourceManager
     {
         $folder          = app_path() . '/' . $this->resourcesFolder;
         $this->resources = collect(scandir($folder))->filter(function ($filename) {
-            return Str::contains($filename, '.php');
+            return str_contains($filename, '.php');
         })->mapWithKeys(function ($filename) {
             $resource = substr($filename, 0, -4);
-            return [Str::plural(lcfirst(substr($filename, 0, -4))) => '\\App\\Thrust\\' . $resource];
+            return [str_plural(lcfirst(substr($filename, 0, -4))) => '\\App\\Thrust\\' . $resource];
         });
     }
 
     public function findResourcesRecursive(){
         $folder          = app_path() . '/' . $this->resourcesFolder;
         $this->resources = collect($this->scandirRecursive($folder))->filter(function ($filename) {
-            return Str::contains($filename, '.php');
+            return str_contains($filename, '.php');
         })->map(function ($path) use ($folder) {
             $filePath = str_replace($folder.DIRECTORY_SEPARATOR,"",$path);
             $filePath = str_replace("/","\\",$filePath);
@@ -76,7 +75,7 @@ class ResourceManager
         if ($resourceName instanceof Resource) {
             return $resourceName;
         }
-        $type  = lcfirst(Str::plural($resourceName));
+        $type  = lcfirst(str_plural($resourceName));
         $class = $this->resources[$type];
         return new $class;
     }
@@ -92,6 +91,6 @@ class ResourceManager
         }
         $path = explode('\\', $class);
         $name = array_pop($path);
-        return lcfirst(Str::plural($name)) ;
+        return lcfirst(str_plural($name)) ;
     }
 }
