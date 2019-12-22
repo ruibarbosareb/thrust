@@ -2,6 +2,7 @@
 
 Laravel 6.0 update by rebortec.com
 
+forked from https://github.com/BadChoice/thrust
 
 ## Fields
 - Validation rules
