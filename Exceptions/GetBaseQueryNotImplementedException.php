@@ -1,6 +1,6 @@
 <?php
 
-namespace BadChoice\Thrust\Exceptions;
+namespace Rebortec\Thrust\Exceptions;
 
 class GetBaseQueryNotImplementedException extends \Exception
 {
