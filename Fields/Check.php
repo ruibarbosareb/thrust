@@ -1,8 +1,8 @@
 <?php
 
-namespace BadChoice\Thrust\Fields;
+namespace Rebortec\Thrust\Fields;
 
-use BadChoice\Thrust\Facades\Thrust;
+use Rebortec\Thrust\Facades\Thrust;
 
 class Check extends Text
 {

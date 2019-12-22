@@ -1,8 +1,8 @@
 <?php
 
-namespace BadChoice\Thrust\Fields;
+namespace Rebortec\Thrust\Fields;
 
-use BadChoice\Thrust\ResourceManager;
+use Rebortec\Thrust\ResourceManager;
 
 class HasMany extends Relationship
 {

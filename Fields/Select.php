@@ -1,17 +1,23 @@
 <?php
 
-namespace BadChoice\Thrust\Fields;
+namespace Rebortec\Thrust\Fields;
 
 class Select extends Field
 {
     protected $options    = [];
     protected $allowNull  = false;
     protected $searchable = false;
+    protected $forceIntValue = false;
 
     public function options($options, $allowNull = false)
     {
         $this->options   = $options;
         $this->allowNull = $allowNull;
+        return $this;
+    }
+
+    public function forceIntValue($forceIntValue = true){
+        $this->forceIntValue = $forceIntValue;
         return $this;
     }
 
@@ -47,9 +53,18 @@ class Select extends Field
             'inline'      => $inline,
             'field'       => $this->field,
             'searchable'  => $this->searchable,
+//            'value'       => intval($this->getValue($object)),
             'value'       => $this->getValue($object),
             'options'     => $this->getOptions(),
             'description' => $this->getDescription(),
         ])->render();
+    }
+
+    public function getValue($object)
+    {
+        if ($this->forceIntValue) {
+            return intval(parent::getValue($object));
+        }
+        return parent::getValue($object);
     }
 }

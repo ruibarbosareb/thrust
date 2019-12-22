@@ -1,10 +1,9 @@
 <?php
 
-namespace BadChoice\Thrust\Fields;
+namespace Rebortec\Thrust\Fields;
 
-use BadChoice\Thrust\Fields\Traits\Visibility;
-use BadChoice\Thrust\Html\Validation;
-use Illuminate\Support\Str;
+use Rebortec\Thrust\Fields\Traits\Visibility;
+use Rebortec\Thrust\Html\Validation;
 
 abstract class Field
 {
@@ -17,6 +16,7 @@ abstract class Field
 
     public $showInIndex = true;
     public $showInEdit  = true;
+    public $policyAction = null;
 
     public $withDesc    = false;
     public $description = false;
@@ -83,7 +83,7 @@ abstract class Field
         if (! $object) {
             return null;
         }
-        if (Str::contains($this->field, '.')) {
+        if (str_contains($this->field, '.')) {
             return data_get($object, $this->field);
         }
         return $object->{$this->field};
@@ -134,6 +134,12 @@ abstract class Field
         return $this;
     }
 
+    public function policyAction($policyAction)
+    {
+        $this->policyAction = $policyAction;
+        return $this;
+    }
+
     public function mapAttributeFromRequest($value)
     {
         return $value;
@@ -145,7 +151,7 @@ abstract class Field
     }
 
     public function getSortableHeaderClass(){
-        if (Str::contains($this->rowClass, 'text-right')) return 'sortableHeaderRight';
+        if (str_contains($this->rowClass, 'text-right')) return 'sortableHeaderRight';
         return 'sortableHeader';
     }
 }

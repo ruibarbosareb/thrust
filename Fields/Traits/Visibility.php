@@ -1,6 +1,6 @@
 <?php
 
-namespace BadChoice\Thrust\Fields\Traits;
+namespace Rebortec\Thrust\Fields\Traits;
 
 trait Visibility
 {

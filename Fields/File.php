@@ -1,10 +1,10 @@
 <?php
 
-namespace BadChoice\Thrust\Fields;
+namespace Rebortec\Thrust\Fields;
 
-use BadChoice\Thrust\Contracts\Prunable;
-use BadChoice\Thrust\Facades\Thrust;
-use BadChoice\Thrust\ResourceManager;
+use Rebortec\Thrust\Contracts\Prunable;
+use Rebortec\Thrust\Facades\Thrust;
+use Rebortec\Thrust\ResourceManager;
 use Illuminate\Support\Facades\Storage;
 
 class File extends Field implements Prunable
@@ -21,6 +21,7 @@ class File extends Field implements Prunable
     public $withLink            = true;
     protected $filename         = null;
     public $onlyUpload          = false;
+    protected $withoutExistsCheck = false;
 
     protected $maxFileSize = 10240; // 10 MB
 
@@ -157,6 +158,8 @@ class File extends Field implements Prunable
 
     public function exists($object)
     {
+        if ($this->withoutExistsCheck) return true;
+        if (starts_with($object->{$this->field}, 'http')) return true;
         if (! $this->filename && ! $object->{$this->field}) return false;
         return Storage::exists($this->getPath(). ($this->filename ?? $object->{$this->field}));
     }
@@ -180,5 +183,10 @@ class File extends Field implements Prunable
     public function prune($object)
     {
         $this->delete($object);
+    }
+
+    public function withoutExistCheck(){
+        $this->withoutExistsCheck = true;
+        return $this;
     }
 }

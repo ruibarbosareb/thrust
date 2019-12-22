@@ -1,6 +1,6 @@
 <?php
 
-namespace BadChoice\Thrust\Fields;
+namespace Rebortec\Thrust\Fields;
 
 class Text extends Field
 {

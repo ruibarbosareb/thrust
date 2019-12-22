@@ -1,9 +1,9 @@
 <?php
 
-namespace BadChoice\Thrust\Fields;
+namespace Rebortec\Thrust\Fields;
 
-use BadChoice\Thrust\Contracts\Prunable;
-use BadChoice\Thrust\ResourceManager;
+use Rebortec\Thrust\Contracts\Prunable;
+use Rebortec\Thrust\ResourceManager;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as InterventionImage;
 

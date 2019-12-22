@@ -1,9 +1,9 @@
 <?php
 
-namespace BadChoice\Thrust\Fields;
+namespace Rebortec\Thrust\Fields;
 
-use BadChoice\Thrust\Fields\Traits\Searchable;
-use BadChoice\Thrust\ResourceFilters\Search;
+use Rebortec\Thrust\Fields\Traits\Searchable;
+use Rebortec\Thrust\ResourceFilters\Search;
 
 abstract class Relationship extends Field
 {
@@ -22,6 +22,15 @@ abstract class Relationship extends Field
     public function getRelation($object)
     {
         return $object->{$this->field}();
+    }
+
+    public function getRelationForeignKey($object)
+    {
+        $relation = $this->getRelation($object);
+        if (method_exists($relation, 'getForeignKey')) {
+            return $relation->getForeignKey();
+        }
+        return $relation->getForeignKeyName();
     }
 
     public function getRelationName($object)

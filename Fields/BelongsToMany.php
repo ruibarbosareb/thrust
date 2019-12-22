@@ -1,9 +1,9 @@
 <?php
 
-namespace BadChoice\Thrust\Fields;
+namespace Rebortec\Thrust\Fields;
 
-use BadChoice\Thrust\ResourceFilters\Search;
-use BadChoice\Thrust\ResourceManager;
+use Rebortec\Thrust\ResourceFilters\Search;
+use Rebortec\Thrust\ResourceManager;
 
 class BelongsToMany extends Relationship
 {
