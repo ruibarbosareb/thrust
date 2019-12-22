@@ -1,5 +1,8 @@
 #Thrust
 
+Laravel 6.0 update by rebortec.com
+
+
 ## Fields
 - Validation rules
 - Show in Index / Edit
