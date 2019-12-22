@@ -1,16 +1,16 @@
 <?php
 
-namespace BadChoice\Thrust;
+namespace Rebortec\Thrust;
 
-use BadChoice\Thrust\Actions\Delete;
-use BadChoice\Thrust\Actions\MainAction;
-use BadChoice\Thrust\Contracts\FormatsNewObject;
-use BadChoice\Thrust\Contracts\Prunable;
-use BadChoice\Thrust\Fields\Panel;
-use BadChoice\Thrust\Fields\Relationship;
-use BadChoice\Thrust\ResourceFilters\Filters;
-use BadChoice\Thrust\ResourceFilters\Search;
-use BadChoice\Thrust\ResourceFilters\Sort;
+use Rebortec\Thrust\Actions\Delete;
+use Rebortec\Thrust\Actions\MainAction;
+use Rebortec\Thrust\Contracts\FormatsNewObject;
+use Rebortec\Thrust\Contracts\Prunable;
+use Rebortec\Thrust\Fields\Panel;
+use Rebortec\Thrust\Fields\Relationship;
+use Rebortec\Thrust\ResourceFilters\Filters;
+use Rebortec\Thrust\ResourceFilters\Search;
+use Rebortec\Thrust\ResourceFilters\Sort;
 use Illuminate\Support\Str;
 
 abstract class Resource

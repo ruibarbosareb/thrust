@@ -1,6 +1,6 @@
 <?php
 
-namespace BadChoice\Thrust;
+namespace Rebortec\Thrust;
 
 abstract class ChildResource extends Resource
 {

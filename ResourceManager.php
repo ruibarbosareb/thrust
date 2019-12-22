@@ -1,6 +1,6 @@
 <?php
 
-namespace BadChoice\Thrust;
+namespace Rebortec\Thrust;
 
 use Log;
 use RecursiveDirectoryIterator;

@@ -1,8 +1,8 @@
 <?php
 
-namespace BadChoice\Thrust\Facades;
+namespace Rebortec\Thrust\Facades;
 
-use BadChoice\Thrust\ResourceManager;
+use Rebortec\Thrust\ResourceManager;
 use Illuminate\Support\Facades\Facade;
 
 class Thrust extends Facade

@@ -7,24 +7,22 @@
         "intervention/image": "2.*"
     },
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Rui Brandão",
-            "email": "ruiabrandao@gmail.com"
-        }
-    ],
+    "authors": [{
+        "name": "Rui Brandão",
+        "email": "ruiabrandao@gmail.com"
+    }],
     "autoload": {
-        "files" : [
+        "files": [
             "src/Helpers/helpers.php"
         ],
         "psr-4": {
-            "BadChoice\\Thrust\\": "src"
+            "Rebortec\\Thrust\\": "src"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "BadChoice\\Thrust\\ThrustServiceProvider"
+                "Rebortec\\Thrust\\ThrustServiceProvider"
             ]
         }
     },

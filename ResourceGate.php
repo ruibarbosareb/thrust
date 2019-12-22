@@ -1,6 +1,6 @@
 <?php
 
-namespace BadChoice\Thrust;
+namespace Rebortec\Thrust;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Gate;
